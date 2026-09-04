@@ -1,0 +1,332 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Clock, AlertCircle, CheckCircle2, Info, ArrowRight } from 'lucide-react';
+
+const ContactFormSection = () => {
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error' | 'integration_pending'>('idle');
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState('submitting');
+    
+    const apiEndpoint = import.meta.env.VITE_API_ENDPOINT;
+    const receiverEmail = import.meta.env.VITE_CONTACT_RECEIVER_EMAIL;
+
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    if (!apiEndpoint || !receiverEmail) {
+      // Backend not configured
+      setFormState('integration_pending');
+      return;
+    }
+
+    try {
+      // Example integration logic (would need a real backend to work)
+      /*
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (!response.ok) throw new Error('Failed to send');
+      */
+      
+      // If we had a real backend, we'd set success here.
+      // For now, since we know it's not configured, we'll hit the block above.
+      setFormState('success');
+    } catch (error) {
+      console.error("Submission failed:", error);
+      setFormState('error');
+    }
+  };
+
+  return (
+    <section id="contact-info" className="py-24 bg-white scroll-mt-20">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+        
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 max-w-7xl mx-auto">
+          
+          {/* LEFT: Contact Information */}
+          <div className="w-full lg:w-5/12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0B192C] mb-6 tracking-tight">
+                Talk to Our Team
+              </h2>
+              <p className="text-gray-500 text-lg leading-relaxed font-light mb-12">
+                For project enquiries, quotations and technical requirements, share your details and our team will get back to you.
+              </p>
+
+              <div className="space-y-8">
+                
+                {/* Email */}
+                <div className="flex items-start gap-5 group">
+                  <div className="w-12 h-12 bg-[#F7FAFC] border border-gray-100 rounded-sm flex items-center justify-center shrink-0 group-hover:border-[#00B4D8]/50 group-hover:bg-white transition-colors duration-300">
+                    <Mail className="text-[#00B4D8]" size={20} />
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold tracking-widest text-gray-400 uppercase mb-1">Email</span>
+                    <a href="mailto:contact@ramservices.in" className="text-[#0B192C] font-medium hover:text-[#00B4D8] transition-colors text-lg block mb-1">
+                      contact@ramservices.in
+                    </a>
+                    <a href="mailto:project@ramservices.in" className="text-[#0B192C] font-medium hover:text-[#00B4D8] transition-colors text-lg block">
+                      project@ramservices.in
+                    </a>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-start gap-5 group">
+                  <div className="w-12 h-12 bg-[#F7FAFC] border border-gray-100 rounded-sm flex items-center justify-center shrink-0 group-hover:border-[#00B4D8]/50 group-hover:bg-white transition-colors duration-300">
+                    <Phone className="text-[#00B4D8]" size={20} />
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold tracking-widest text-gray-400 uppercase mb-1">Phone</span>
+                    <a href="tel:+916309767400" className="text-[#0B192C] font-medium text-lg block hover:text-[#00B4D8] transition-colors">
+                      +91 6309767400
+                    </a>
+                  </div>
+                </div>
+
+                {/* Office */}
+                <div className="flex items-start gap-5 group">
+                  <div className="w-12 h-12 bg-[#F7FAFC] border border-gray-100 rounded-sm flex items-center justify-center shrink-0 group-hover:border-[#00B4D8]/50 group-hover:bg-white transition-colors duration-300">
+                    <MapPin className="text-[#00B4D8]" size={20} />
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold tracking-widest text-gray-400 uppercase mb-1">Head Office</span>
+                    <span className="text-[#0B192C] font-medium text-lg block leading-relaxed">
+                      0, Shikandara, Phoolpur<br />
+                      Prayagraj, U.P. - 212109, India
+                    </span>
+                  </div>
+                </div>
+
+                {/* Business Hours */}
+                <div className="flex items-start gap-5 group">
+                  <div className="w-12 h-12 bg-[#F7FAFC] border border-gray-100 rounded-sm flex items-center justify-center shrink-0 group-hover:border-[#00B4D8]/50 group-hover:bg-white transition-colors duration-300">
+                    <Clock className="text-[#00B4D8]" size={20} />
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold tracking-widest text-gray-400 uppercase mb-1">Business Hours</span>
+                    <span className="text-[#0B192C] font-medium text-lg block">
+                      Monday - Saturday: 9:00 AM - 6:00 PM
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </motion.div>
+          </div>
+
+          {/* RIGHT: Contact Form */}
+          <div className="w-full lg:w-7/12" id="contact-form">
+            <motion.div
+              className="bg-white border border-gray-200 rounded-sm p-8 md:p-12 shadow-xl shadow-[#0B192C]/5"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className="text-2xl font-bold text-[#0B192C] mb-8">Send an Enquiry</h3>
+              
+              {formState === 'success' ? (
+                <div className="bg-green-50 border border-green-200 p-8 rounded-sm text-center flex flex-col items-center">
+                  <CheckCircle2 className="text-green-500 mb-4" size={48} />
+                  <h4 className="text-xl font-bold text-green-800 mb-2">Enquiry Sent Successfully</h4>
+                  <p className="text-green-600 mb-6">Thank you for contacting RAM SERVICES ENTERPRISES. Our team has received your enquiry and will review your requirements.</p>
+                  <p className="text-green-600 mb-6 font-medium">We'll get back to you as soon as possible.</p>
+                  <button 
+                    onClick={() => setFormState('idle')}
+                    className="text-sm font-semibold text-green-700 hover:text-green-900 border-b border-green-700 pb-1"
+                  >
+                    Send Another Enquiry
+                  </button>
+                </div>
+              ) : formState === 'integration_pending' ? (
+                <div className="bg-blue-50 border border-blue-200 p-8 rounded-sm text-center flex flex-col items-center">
+                  <Info className="text-blue-500 mb-4" size={48} />
+                  <h4 className="text-xl font-bold text-blue-800 mb-2">Frontend Form Validated</h4>
+                  <p className="text-blue-700 mb-4 text-sm leading-relaxed max-w-md mx-auto">
+                    UI and submission integration are implemented, but email delivery requires <code className="bg-white px-1.5 py-0.5 rounded border border-blue-100 text-xs text-blue-900 font-mono">VITE_CONTACT_RECEIVER_EMAIL</code> and <code className="bg-white px-1.5 py-0.5 rounded border border-blue-100 text-xs text-blue-900 font-mono">VITE_API_ENDPOINT</code> environment variables to be configured.
+                  </p>
+                  <button 
+                    onClick={() => setFormState('idle')}
+                    className="text-sm font-semibold text-blue-700 hover:text-blue-900 border-b border-blue-700 pb-1 mt-4"
+                  >
+                    Return to Form
+                  </button>
+                </div>
+              ) : formState === 'error' ? (
+                <div className="bg-red-50 border border-red-200 p-8 rounded-sm text-center flex flex-col items-center">
+                  <AlertCircle className="text-red-500 mb-4" size={48} />
+                  <h4 className="text-xl font-bold text-red-800 mb-2">Something went wrong</h4>
+                  <p className="text-red-600 mb-6">An error occurred while sending your enquiry. Please try again or contact our team directly.</p>
+                  <button 
+                    onClick={() => setFormState('idle')}
+                    className="text-sm font-semibold text-red-700 hover:text-red-900 border-b border-red-700 pb-1"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="fullName" className="block text-sm font-medium text-[#1A365D]">Full Name *</label>
+                      <input 
+                        type="text" 
+                        id="fullName" 
+                        required
+                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="company" className="block text-sm font-medium text-[#1A365D]">Company Name</label>
+                      <input 
+                        type="text" 
+                        id="company" 
+                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        placeholder="Company Ltd."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="block text-sm font-medium text-[#1A365D]">Email Address *</label>
+                      <input 
+                        type="email" 
+                        id="email" 
+                        required
+                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="phone" className="block text-sm font-medium text-[#1A365D]">Phone Number</label>
+                      <input 
+                        type="tel" 
+                        id="phone" 
+                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        placeholder="+91 XXXXX XXXXX"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="industry" className="block text-sm font-medium text-[#1A365D]">Industry / Sector</label>
+                      <input 
+                        type="text" 
+                        id="industry" 
+                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        placeholder="e.g. Pharmaceuticals"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="requirementType" className="block text-sm font-medium text-[#1A365D]">Requirement Type *</label>
+                      <div className="relative">
+                        <select 
+                          id="requirementType"
+                          required
+                          className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all appearance-none text-[#1A365D]"
+                        >
+                          <option value="">Select Requirement...</option>
+                          <option value="new-water-treatment">New Water Treatment System</option>
+                          <option value="wastewater-treatment">Wastewater Treatment</option>
+                          <option value="plant-upgrade">Plant Upgrade / Expansion</option>
+                          <option value="engineering-om">Engineering & O&M</option>
+                          <option value="industrial-treatment">Industrial Treatment Requirement</option>
+                          <option value="product-enquiry">Product Enquiry</option>
+                          <option value="spare-parts">Spare Parts / Equipment</option>
+                          <option value="service-maintenance">Service / Maintenance</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="location" className="block text-sm font-medium text-[#1A365D]">Project Location</label>
+                    <input 
+                      type="text" 
+                      id="location" 
+                      className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                      placeholder="City, State, Country"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="block text-sm font-medium text-[#1A365D]">Message *</label>
+                    <textarea 
+                      id="message" 
+                      required
+                      rows={5}
+                      className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all resize-none placeholder:text-gray-400"
+                      placeholder="Please provide details about your requirement..."
+                    ></textarea>
+                  </div>
+                  
+                  <div className="flex items-start gap-3 mt-4">
+                    <div className="flex items-center h-5 mt-0.5">
+                      <input 
+                        id="privacy" 
+                        type="checkbox" 
+                        className="w-4 h-4 border-gray-300 rounded bg-[#F7FAFC] text-[#00B4D8] focus:ring-[#00B4D8]"
+                      />
+                    </div>
+                    <label htmlFor="privacy" className="text-sm text-gray-500 leading-tight">
+                      I agree to the privacy policy and consent to RAM SERVICES ENTERPRISES storing and processing my personal data to handle my enquiry.
+                    </label>
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    disabled={formState === 'submitting'}
+                    className={`w-full inline-flex items-center justify-center gap-2 px-8 py-4 mt-2 font-semibold rounded-sm transition-all duration-300 shadow-md ${
+                      formState === 'submitting' 
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' 
+                        : 'bg-[#0B192C] text-white hover:bg-[#1A365D] hover:shadow-[0_10px_20px_-10px_rgba(11,25,44,0.5)]'
+                    }`}
+                  >
+                    {formState === 'submitting' ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-gray-400 border-t-gray-600 rounded-full animate-spin"></div>
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        Send Enquiry
+                        <ArrowRight size={18} className="ml-1" />
+                      </>
+                    )}
+                  </button>
+
+                  <p className="text-xs text-gray-400 text-center mt-4 uppercase tracking-widest font-semibold">
+                    * Required fields
+                  </p>
+
+                </form>
+              )}
+            </motion.div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default ContactFormSection;

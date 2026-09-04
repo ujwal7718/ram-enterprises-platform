@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0B192C;
+  --color-primary-light: #1A365D;
+  --color-accent-aqua: #00B4D8;
+  --color-accent-cyan: #48CAE4;
+  --color-accent-red: #C1121F;
+  --color-bg-light: #F7FAFC;
+  --color-bg-water: #F0F8FF;
+  
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg-light);
+    color: #1a202c;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Fix sticky header overlap globally for all anchor targets */
+  html {
+    scroll-padding-top: 80px; /* matches header height */
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+}

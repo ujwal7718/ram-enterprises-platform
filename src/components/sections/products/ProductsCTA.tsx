@@ -1,0 +1,58 @@
+import { Link } from 'react-router-dom';
+import { ArrowRight, MessageSquareText } from 'lucide-react';
+
+const ProductsCTA = () => {
+  return (
+    <section className="py-24 relative overflow-hidden bg-[#0B192C]">
+      {/* Abstract Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B192C] via-[#0B192C] to-[#1A365D]"></div>
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#00B4D8]/20 via-transparent to-transparent"></div>
+        
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]" 
+          style={{ backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+        ></div>
+      </div>
+
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          
+          <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-4 block">
+            Ready to Start?
+          </span>
+
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Have a Treatment or <br className="hidden md:block" /> Engineering Requirement?
+          </h2>
+          
+          <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Talk to RAM Services Enterprises about your water, wastewater or industrial requirement.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link 
+              to="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#00B4D8] text-[#0B192C] font-bold rounded-sm hover:bg-white transition-all duration-300 group shadow-lg shadow-[#00B4D8]/20"
+            >
+              Request a Quote
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+            
+            <Link 
+              to="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 border border-gray-400 text-white font-medium rounded-sm hover:border-white hover:bg-white/10 transition-all duration-300"
+            >
+              <MessageSquareText size={20} />
+              Contact Us
+            </Link>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProductsCTA;
