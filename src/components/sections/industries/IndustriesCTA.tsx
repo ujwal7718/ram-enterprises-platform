@@ -1,18 +1,28 @@
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MessageSquareText } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const WaveField = lazy(() => import('../../three/WaveField'));
+
 const IndustriesCTA = () => {
   return (
     <section className="py-32 relative overflow-hidden bg-[#0B192C]">
+      {/* 3D flowing wave surface — same treatment as the homepage CTA */}
+      <div className="absolute inset-0 z-0 opacity-50">
+        <Suspense fallback={null}>
+          <WaveField />
+        </Suspense>
+      </div>
+
       {/* Premium Dark Background with Subtle Grid & Texture */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[#0B192C] z-10 opacity-90"></div>
+      <div className="absolute inset-0 z-10">
+        <div className="absolute inset-0 bg-[#0B192C] opacity-70"></div>
         <div 
-          className="absolute inset-0 z-0 opacity-[0.05]"
+          className="absolute inset-0 opacity-[0.05]"
           style={{ backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)', backgroundSize: '60px 60px' }}
         ></div>
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#00B4D8]/10 via-[#0B192C]/0 to-transparent z-10"></div>
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#00B4D8]/10 via-[#0B192C]/0 to-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-30">

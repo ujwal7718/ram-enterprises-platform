@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Reveal from '../../motion/Reveal';
 
 const Industries = () => {
   const industries = [
@@ -22,14 +23,14 @@ const Industries = () => {
     <section className="py-24 bg-[#F0F8FF] border-t border-[#E2E8F0]">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
             Application Areas
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#0B192C] mb-6">
             Solutions Across Diverse Industries
           </h2>
-        </div>
+        </Reveal>
 
         <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
           {industries.map((industry, index) => (

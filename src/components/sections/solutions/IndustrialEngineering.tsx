@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Network, Hammer, Wrench, Zap, HardHat, PaintRoller } from 'lucide-react';
+import TiltCard from '../../motion/TiltCard';
 
 const IndustrialEngineering = () => {
   const capabilities = [
@@ -46,18 +47,23 @@ const IndustrialEngineering = () => {
 
           <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {capabilities.map((cap, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
-                className="bg-[#1A365D]/30 backdrop-blur-sm border border-[#1A365D] p-6 rounded-xl hover:bg-[#1A365D]/60 hover:border-[#00B4D8]/50 transition-all duration-300 flex flex-col items-center text-center group"
+                className="[perspective:800px]"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="mb-4 w-12 h-12 rounded-full bg-[#0B192C] border border-[#1A365D] flex items-center justify-center group-hover:scale-110 transition-transform">
-                  {cap.icon}
-                </div>
-                <h3 className="text-white font-bold text-sm tracking-wide">{cap.title}</h3>
+                <TiltCard
+                  strength={6}
+                  className="bg-[#1A365D]/30 backdrop-blur-sm border border-[#1A365D] p-6 rounded-xl hover:bg-[#1A365D]/60 hover:border-[#00B4D8]/50 transition-colors duration-300 flex flex-col items-center text-center group"
+                >
+                  <div className="mb-4 w-12 h-12 rounded-full bg-[#0B192C] border border-[#1A365D] flex items-center justify-center group-hover:scale-110 transition-transform">
+                    {cap.icon}
+                  </div>
+                  <h3 className="text-white font-bold text-sm tracking-wide">{cap.title}</h3>
+                </TiltCard>
               </motion.div>
             ))}
           </div>

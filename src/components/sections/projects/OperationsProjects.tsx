@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import TiltCard from '../../motion/TiltCard';
+import Reveal from '../../motion/Reveal';
 
 const OperationsProjects = () => {
   const projects = [
@@ -20,7 +22,7 @@ const OperationsProjects = () => {
         
         <div className="flex flex-col md:flex-row gap-12 items-start max-w-6xl mx-auto">
           
-          <div className="md:w-1/3 sticky top-32">
+          <Reveal direction="left" className="md:w-1/3 sticky top-32">
             <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
               Operations & Maintenance
             </span>
@@ -31,7 +33,7 @@ const OperationsProjects = () => {
             <p className="text-gray-400 text-lg leading-relaxed">
               RAM Services Enterprises also provides operations, maintenance, and ongoing support for water and wastewater treatment facilities to ensure continuous optimal performance.
             </p>
-          </div>
+          </Reveal>
 
           <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {projects.map((project, index) => {
@@ -39,35 +41,40 @@ const OperationsProjects = () => {
               const capacityParts = project.capacity.split(/(&|\+)/).map(part => part.trim());
 
               return (
-                <motion.div 
+                <motion.div
                   key={index}
-                  className="bg-[#1A365D]/20 border border-[#1A365D] p-6 rounded-xl hover:bg-[#1A365D]/50 hover:border-[#00B4D8]/40 transition-colors duration-300 flex flex-col justify-between"
+                  className="[perspective:800px]"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: (index % 5) * 0.1 }}
                 >
-                  <div className="mb-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-mono text-gray-500">
-                        {(index + 1).toString().padStart(2, '0')}
-                      </span>
-                    </div>
-                    <div className="text-[#00B4D8] font-bold text-lg leading-snug">
-                      {capacityParts.map((part, i) => (
-                        <span key={i} className={part === '&' || part === '+' ? 'text-gray-400 mx-1' : ''}>
-                          {part}
+                  <TiltCard
+                    strength={5}
+                    className="bg-[#1A365D]/20 border border-[#1A365D] p-6 rounded-xl hover:bg-[#1A365D]/50 hover:border-[#00B4D8]/40 transition-colors duration-300 flex flex-col justify-between h-full"
+                  >
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-mono text-gray-500">
+                          {(index + 1).toString().padStart(2, '0')}
                         </span>
-                      ))}
+                      </div>
+                      <div className="text-[#00B4D8] font-bold text-lg leading-snug">
+                        {capacityParts.map((part, i) => (
+                          <span key={i} className={part === '&' || part === '+' ? 'text-gray-400 mx-1' : ''}>
+                            {part}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-white font-medium mb-1">{project.client}</h3>
-                    <p className="text-gray-500 text-sm flex items-center gap-1.5">
-                      {project.location}
-                    </p>
-                  </div>
+
+                    <div>
+                      <h3 className="text-white font-medium mb-1">{project.client}</h3>
+                      <p className="text-gray-500 text-sm flex items-center gap-1.5">
+                        {project.location}
+                      </p>
+                    </div>
+                  </TiltCard>
                 </motion.div>
               );
             })}
