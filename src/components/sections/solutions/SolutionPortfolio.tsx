@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Droplets, Recycle, Settings, Wrench, HeadphonesIcon } from 'lucide-react';
+import TiltCard from '../../motion/TiltCard';
+import Reveal from '../../motion/Reveal';
 
 const SolutionPortfolio = () => {
   const categories = [
@@ -44,7 +46,7 @@ const SolutionPortfolio = () => {
     <section id="portfolio" className="py-24 bg-[#F7FAFC]">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
             What We Deliver
           </span>
@@ -55,32 +57,38 @@ const SolutionPortfolio = () => {
           <p className="text-gray-600 text-lg">
             RAM Services Enterprises provides integrated engineering and turnkey solutions across water treatment, wastewater treatment, advanced treatment systems, and industrial infrastructure.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {categories.map((category, index) => (
-            <motion.a 
-              href={category.link}
+            <motion.div
               key={index}
-              className={`block bg-white rounded-xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-[#00B4D8]/5 hover:border-[#00B4D8]/30 hover:-translate-y-1 transition-all duration-300 group flex flex-col cursor-pointer ${index === 3 ? 'lg:col-start-1 lg:ml-auto w-full lg:max-w-md' : ''} ${index === 4 ? 'lg:col-start-2 lg:mr-auto w-full lg:max-w-md' : ''}`}
+              className={`[perspective:800px] h-full ${index === 3 ? 'lg:col-start-1 lg:ml-auto w-full lg:max-w-md' : ''} ${index === 4 ? 'lg:col-start-2 lg:mr-auto w-full lg:max-w-md' : ''}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="flex justify-between items-start mb-6">
-                <div className="w-12 h-12 bg-[#00B4D8]/10 text-[#00B4D8] group-hover:bg-[#00B4D8] group-hover:text-white rounded-lg flex items-center justify-center transition-colors duration-300">
-                  {category.icon}
-                </div>
-                <span className="text-3xl font-light text-gray-200 group-hover:text-[#00B4D8]/20 transition-colors font-mono">{category.num}</span>
-              </div>
-              <h3 className="text-xl font-bold text-[#1A365D] mb-3">{category.title}</h3>
-              <p className="text-gray-600 mb-6 flex-grow text-sm leading-relaxed">{category.desc}</p>
-              
-              <div className="inline-flex items-center text-sm font-bold text-[#0B192C] group-hover:text-[#00B4D8] transition-colors mt-auto">
-                Explore <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </motion.a>
+              <TiltCard strength={6} className="h-full">
+                <a
+                  href={category.link}
+                  className="block h-full bg-white rounded-xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-[#00B4D8]/5 hover:border-[#00B4D8]/30 transition-shadow duration-300 group flex flex-col cursor-pointer"
+                >
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="w-12 h-12 bg-[#00B4D8]/10 text-[#00B4D8] group-hover:bg-[#00B4D8] group-hover:text-white rounded-lg flex items-center justify-center transition-colors duration-300">
+                      {category.icon}
+                    </div>
+                    <span className="text-3xl font-light text-gray-200 group-hover:text-[#00B4D8]/20 transition-colors font-mono">{category.num}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-[#1A365D] mb-3">{category.title}</h3>
+                  <p className="text-gray-600 mb-6 flex-grow text-sm leading-relaxed">{category.desc}</p>
+
+                  <div className="inline-flex items-center text-sm font-bold text-[#0B192C] group-hover:text-[#00B4D8] transition-colors mt-auto">
+                    Explore <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </a>
+              </TiltCard>
+            </motion.div>
           ))}
         </div>
 

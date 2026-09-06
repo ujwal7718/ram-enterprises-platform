@@ -1,13 +1,18 @@
+import { lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
-import About from './pages/About';
-import Solutions from './pages/Solutions';
-import Projects from './pages/Projects';
-import Products from './pages/Products';
-import Industries from './pages/Industries';
 
-import Contact from './pages/Contact';
+// Route-level code splitting: each page is its own chunk, fetched only
+// when the visitor actually navigates there. The Suspense boundary that
+// catches these lives inside MainLayout, around just the page content —
+// so the header/footer never unmount while a chunk is loading.
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Solutions = lazy(() => import('./pages/Solutions'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Products = lazy(() => import('./pages/Products'));
+const Industries = lazy(() => import('./pages/Industries'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 function App() {
   return (

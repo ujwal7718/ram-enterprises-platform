@@ -1,4 +1,7 @@
 import { Shield, Lightbulb, Heart, Zap, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Reveal from '../motion/Reveal';
+import Stagger from '../motion/Stagger';
 
 const WhoWeAre = () => {
   const values = [
@@ -12,12 +15,16 @@ const WhoWeAre = () => {
   return (
     <section className="py-24 bg-white relative overflow-hidden">
       {/* Decorative background element */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
-      
+      <motion.div
+        className="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          <div>
+
+          <Reveal direction="left">
             <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
               Who We Are
             </span>
@@ -30,30 +37,32 @@ const WhoWeAre = () => {
             <p className="text-gray-600 mb-8 leading-relaxed">
               With in-house design and execution capabilities, state-of-the-art fabrication facilities in Prayagraj and Hyderabad, and a dedicated team of scientists and engineers, we deliver end-to-end engineering support and services.
             </p>
-            
+
             <div className="flex items-center gap-4">
               <div className="w-16 h-1 bg-[#C1121F] rounded-full"></div>
               <span className="font-semibold text-[#1A365D] tracking-wide">Excellence Delivered.</span>
             </div>
-          </div>
-          
-          <div className="bg-[#F7FAFC] p-8 md:p-10 rounded-2xl border border-gray-100 shadow-lg shadow-[#0B192C]/5">
-            <h3 className="text-2xl font-bold text-[#0B192C] mb-8">Our Core Values</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {values.map((value, index) => (
-                <div key={index} className="flex gap-4">
-                  <div className="shrink-0 mt-1">
-                    {value.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">{value.name}</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">{value.desc}</p>
-                  </div>
-                </div>
-              ))}
+          </Reveal>
+
+          <Reveal direction="right" delay={0.15}>
+            <div className="bg-[#F7FAFC] p-8 md:p-10 rounded-2xl border border-gray-100 shadow-lg shadow-[#0B192C]/5">
+              <h3 className="text-2xl font-bold text-[#0B192C] mb-8">Our Core Values</h3>
+              <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-8" amount={0.3}>
+                {values.map((value) => (
+                  <Stagger.Item key={value.name} className="flex gap-4 group">
+                    <div className="shrink-0 mt-1 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                      {value.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">{value.name}</h4>
+                      <p className="text-sm text-gray-600 leading-relaxed">{value.desc}</p>
+                    </div>
+                  </Stagger.Item>
+                ))}
+              </Stagger>
             </div>
-          </div>
-          
+          </Reveal>
+
         </div>
       </div>
     </section>

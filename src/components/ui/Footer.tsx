@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ChevronRight } from 'lucide-react';
 
+// Explicit route map: the previous label.toLowerCase().replace(' ', '')
+// approach silently produced /aboutus and /contactus, which don't match
+// the routes registered in App.tsx (/about, /contact).
+const QUICK_LINKS = [
+  { label: 'About Us', to: '/about' },
+  { label: 'Solutions', to: '/solutions' },
+  { label: 'Products', to: '/products' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Industries', to: '/industries' },
+  { label: 'Contact Us', to: '/contact' },
+];
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -29,14 +41,14 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold text-lg mb-6">Quick Links</h3>
             <ul className="flex flex-col gap-3">
-              {['About Us', 'Solutions', 'Products', 'Projects', 'Industries', 'Contact Us'].map((link) => (
-                <li key={link}>
-                  <Link 
-                    to={`/${link.toLowerCase().replace(' ', '')}`}
-                    className="text-sm hover:text-[#00B4D8] transition-colors flex items-center gap-1 group"
+              {QUICK_LINKS.map(({ label, to }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="text-sm hover:text-[#00B4D8] transition-colors flex items-center gap-1 group rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#00B4D8] focus-visible:outline-offset-2"
                   >
-                    <ChevronRight size={14} className="text-gray-600 group-hover:text-[#00B4D8] transition-colors" />
-                    {link}
+                    <ChevronRight size={14} className="text-gray-600 group-hover:text-[#00B4D8] group-hover:translate-x-0.5 transition-all" />
+                    {label}
                   </Link>
                 </li>
               ))}

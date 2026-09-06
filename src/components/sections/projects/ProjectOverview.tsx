@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import TiltCard from '../../motion/TiltCard';
+import Reveal from '../../motion/Reveal';
 
 const ProjectOverview = () => {
   const metrics = [
@@ -12,7 +14,7 @@ const ProjectOverview = () => {
     <section id="portfolio" className="py-24 bg-[#F7FAFC]">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
             Project Experience
           </span>
@@ -23,21 +25,23 @@ const ProjectOverview = () => {
           <p className="text-gray-600 text-lg">
             RAM Services Enterprises has executed and supported water, effluent, sewage, leachate, ZLD, and related treatment projects across industrial, institutional, and commercial applications.
           </p>
-        </div>
+        </Reveal>
 
         {/* Metrics Summary */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mb-16">
           {metrics.map((metric, index) => (
-            <motion.div 
+            <motion.div
               key={index}
-              className="bg-white p-6 rounded-xl border border-gray-100 text-center shadow-sm"
+              className="[perspective:800px]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="text-2xl md:text-3xl font-bold text-[#1A365D] mb-2">{metric.value}</div>
-              <div className="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div>
+              <TiltCard strength={6} className="bg-white p-6 rounded-xl border border-gray-100 text-center shadow-sm">
+                <div className="text-2xl md:text-3xl font-bold text-[#1A365D] mb-2">{metric.value}</div>
+                <div className="text-xs md:text-sm text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

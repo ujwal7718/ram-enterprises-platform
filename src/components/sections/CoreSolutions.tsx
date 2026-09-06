@@ -1,5 +1,8 @@
 import { Droplet, Factory, Zap, Settings, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Reveal from '../motion/Reveal';
+import Stagger from '../motion/Stagger';
+import TiltCard from '../motion/TiltCard';
 
 const CoreSolutions = () => {
   const solutions = [
@@ -30,10 +33,10 @@ const CoreSolutions = () => {
   ];
 
   return (
-    <section className="py-24 bg-[#F0F8FF] relative">
+    <section className="py-24 bg-[#F0F8FF] relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        
-        <div className="text-center max-w-3xl mx-auto mb-16">
+
+        <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
             Our Expertise
           </span>
@@ -43,33 +46,35 @@ const CoreSolutions = () => {
           <p className="text-gray-600 text-lg">
             Delivering robust, efficient, and sustainable infrastructure for industrial and municipal clients.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {solutions.map((solution, index) => (
-            <div 
-              key={index}
-              className="bg-white p-8 rounded-xl border border-blue-50 hover:shadow-xl hover:shadow-[#0B192C]/5 transition-all duration-300 group flex flex-col h-full"
-            >
-              <div className="w-16 h-16 bg-[#F0F8FF] rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                {solution.icon}
-              </div>
-              <h3 className="text-xl font-bold text-[#0B192C] mb-4">
-                {solution.title}
-              </h3>
-              <p className="text-gray-600 mb-8 flex-grow">
-                {solution.description}
-              </p>
-              <Link 
-                to={solution.link}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[#1A365D] hover:text-[#00B4D8] transition-colors mt-auto"
+        <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" amount={0.1}>
+          {solutions.map((solution) => (
+            <Stagger.Item key={solution.title} className="h-full [perspective:800px]">
+              <TiltCard
+                strength={7}
+                className="bg-white p-8 rounded-xl border border-blue-50 hover:shadow-xl hover:shadow-[#0B192C]/10 transition-shadow duration-300 group flex flex-col h-full"
               >
-                Request a Quote
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
+                <div className="w-16 h-16 bg-[#F0F8FF] rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  {solution.icon}
+                </div>
+                <h3 className="text-xl font-bold text-[#0B192C] mb-4">
+                  {solution.title}
+                </h3>
+                <p className="text-gray-600 mb-8 flex-grow">
+                  {solution.description}
+                </p>
+                <Link
+                  to={solution.link}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#1A365D] hover:text-[#00B4D8] transition-colors mt-auto"
+                >
+                  Request a Quote
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </TiltCard>
+            </Stagger.Item>
           ))}
-        </div>
+        </Stagger>
 
       </div>
     </section>

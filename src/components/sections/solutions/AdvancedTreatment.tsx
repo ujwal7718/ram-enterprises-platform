@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import TiltCard from '../../motion/TiltCard';
+import Reveal from '../../motion/Reveal';
 
 const AdvancedTreatment = () => {
   const technologies = [
@@ -13,7 +15,7 @@ const AdvancedTreatment = () => {
     <section id="advanced-treatment" className="py-24 bg-white scroll-mt-20">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
             Advanced Treatment
           </span>
@@ -23,21 +25,23 @@ const AdvancedTreatment = () => {
           <p className="text-gray-600 text-lg">
             For applications requiring advanced treatment and recovery, RAM Services Enterprises works with sophisticated technologies to minimize environmental footprint.
           </p>
-        </div>
+        </Reveal>
 
         {/* Technologies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
           {technologies.map((tech, index) => (
-            <motion.div 
+            <motion.div
               key={index}
-              className="bg-[#F7FAFC] border border-gray-100 rounded-xl p-8 text-center hover:border-[#00B4D8]/40 hover:shadow-md transition-all duration-300"
+              className="[perspective:800px]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="text-[#00B4D8] font-mono text-xl font-bold mb-4 opacity-50">{tech.num}</div>
-              <h3 className="text-[#1A365D] font-bold text-lg">{tech.title}</h3>
+              <TiltCard strength={6} className="bg-[#F7FAFC] border border-gray-100 rounded-xl p-8 text-center hover:border-[#00B4D8]/40 hover:shadow-md transition-shadow duration-300">
+                <div className="text-[#00B4D8] font-mono text-xl font-bold mb-4 opacity-50">{tech.num}</div>
+                <h3 className="text-[#1A365D] font-bold text-lg">{tech.title}</h3>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

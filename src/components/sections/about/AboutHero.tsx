@@ -1,4 +1,8 @@
 import { motion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+
+// Code-split: three.js is only fetched when this hero mounts.
+const ParticleField = lazy(() => import('../../three/ParticleField'));
 
 const AboutHero = () => {
   return (
@@ -10,6 +14,12 @@ const AboutHero = () => {
           style={{ backgroundImage: 'url("/assets/engineering/civil-construction-1.jpeg")' }}
         ></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B192C] via-[#0B192C]/90 to-[#0B192C]/60"></div>
+      </div>
+
+      <div className="hidden md:block absolute inset-0 z-[5] opacity-20">
+        <Suspense fallback={null}>
+          <ParticleField color="#00B4D8" count={3} />
+        </Suspense>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
